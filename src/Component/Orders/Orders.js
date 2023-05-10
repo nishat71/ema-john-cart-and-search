@@ -1,19 +1,52 @@
 import React, { useState } from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom';
+import Cart from '../Cart/Cart';
+import ReviewItem from '../ReviewItem/ReviewItem';
+import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
 
 const Orders = () => {
   const { products, initialCart } = useLoaderData();  //{ products: products, initialCart: initialCart }
   const [cart, setCart] = useState(initialCart);
 
+  const handleRemoveItem = (id) => {
+    const remaining = cart.filter((product) => product.id !== id);
+    setCart(remaining);
+    removeFromDb(id);
+  }
+
+  const clearCart = () => {
+    setCart([]);
+    deleteShoppingCart();
+  }
+
+
   return (
-    <div>
-      <h2>This is Orders {products.length}</h2>
-      <h3>InitialCart {cart.length}</h3>
+    <div className="shop-container">
+      <div className="orders-container">
+        {
+          cart.map((product) => <ReviewItem
+            key={product.id}
+            product={product}
+            handleRemoveItem={handleRemoveItem}
+          />
+          )}
+        {
+          cart.length === 0 && <h2>No items for Review. Please <Link to="/">shop here</Link></h2>
+        }
+      </div>
+      <div className="cart-container">
+        <Cart cart={cart} clearCart={clearCart}></Cart>
+      </div>
     </div>
   )
 }
 
 export default Orders
+
+
+
+
+
 
 //useLoaderData object return krtese tai eke access krte hole distructuring kore use krte hobe
 

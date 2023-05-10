@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { addToDb, getStoredCart } from "../../utilities/fakedb";
+import { addToDb, deleteShoppingCart, getStoredCart } from "../../utilities/fakedb";
 
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 
 const Shop = () => {
@@ -121,7 +123,10 @@ const Shop = () => {
   // }
 
 
-
+  const clearCart = () => {
+    setCart([]); //empty array dilei clear cart hoye jabe
+    deleteShoppingCart();
+  }
 
   return (
 
@@ -136,8 +141,16 @@ const Shop = () => {
           ></Product>
         ))}
       </div>
+
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart} clearCart={clearCart}>
+          <Link to="/orders" className="review_link">
+            <button className="review_order">
+              Review Order
+              <FontAwesomeIcon  icon={faArrowRight}></FontAwesomeIcon>{" "}
+            </button>
+          </Link>
+        </Cart>
         {/* cart name e props pataysi jar value {cart} */}
       </div>
     </div>
@@ -148,7 +161,8 @@ export default Shop;
 
 
 /* .products-container+.cart-container */
-
+// component er pet er modde kisu takle tkn component er modde gele sekane by default  akta special props pabo setar nam hocche children
+// children er modde j jinish patabo oi jinish purata pawa jabe and ai children k dynamic babe dekano jabe
 
 
     // <>
@@ -156,7 +170,7 @@ export default Shop;
     //     <Product
     //       key={product.id}
     //       product={product}
-    //       handleAddToCart={handleAddToCart} 
+    //       handleAddToCart={handleAddToCart}
     //     ></Product>
     //   ))}
     // </>

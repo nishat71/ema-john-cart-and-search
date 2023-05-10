@@ -24,9 +24,6 @@ function App() {
         {
           path: "orders",
           loader: ProductsAndCartLoader,
-          // loader: async () => {
-          //   return fetch("products.json");
-          // },
           element: <Orders />
         },
         {

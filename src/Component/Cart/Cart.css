@@ -1,5 +1,35 @@
 .cart {
     position: sticky;
     top: 0;
-    padding:30px 20px;
+    padding: 30px 20px;
+}
+
+.cart_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: #FF3030;
+    border-radius: 4px;
+    border: 0;
+    padding: 16px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: .3s ease all;
+}
+
+.cart_btn:hover {
+    background: #f76b6b;
+}
+
+.cart_btn p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 17px;
+    color: #FFFFFF;
+}
+
+.cart_delete_icon {
+    font-size: 15px;
+    color: #FFFFFF;
 }
